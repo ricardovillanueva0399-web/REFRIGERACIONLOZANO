@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Últimas publicaciones de Instagram</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .post img { width: 100%; border-radius: 8px; display: block; }
+    .post p { font-size: 0.85rem; color: #444; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+</head>
+<body>
+  <h1>Últimas publicaciones</h1>
+  <div id="grid">Cargando...</div>
+
+  <script>
+    fetch('/api/instagram/posts?limit=6')
+      .then((r) => r.json())
+      .then(({ posts, error }) => {
+        const grid = document.getElementById('grid');
+        if (error) {
+          grid.textContent = 'Error: ' + error;
+          return;
+        }
+        grid.innerHTML = posts
+          .map((p) => {
+            const img = p.media_type === 'VIDEO' ? p.thumbnail_url : p.media_url;
+            const caption = (p.caption || '').slice(0, 100);
+            return `<a class="post" href="${p.permalink}" target="_blank" rel="noopener">
+              <img src="${img}" alt="" />
+              <p>${caption}</p>
+            </a>`;
+          })
+          .join('');
+      })
+      .catch((err) => {
+        document.getElementById('grid').textContent = 'Error al cargar: ' + err.message;
+      });
+  </script>
+</body>
+</html>
