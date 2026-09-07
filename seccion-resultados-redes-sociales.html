@@ -1,0 +1,444 @@
+<title>Resultados en Redes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+  :root{
+    --bg:#eef2f1;
+    --surface:#ffffff;
+    --surface-2:#e2e9e7;
+    --ink:#122024;
+    --ink-dim:#57696c;
+    --line:#d3dcda;
+    --line-strong:#b7c4c1;
+    --accent:#1b6e64;
+    --accent-ink:#ffffff;
+    --fb:#2a58a0;
+    --fb-soft:#e7edf7;
+    --ig:#9c2459;
+    --ig-soft:#f6e8ee;
+    --web:#a2560f;
+    --web-soft:#f4ece0;
+    --msg:#2a7a51;
+    --msg-soft:#e6f0ea;
+    --shadow: 0 1px 2px rgba(18,32,36,.06), 0 8px 24px -16px rgba(18,32,36,.25);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1616;
+      --surface:#161f1f;
+      --surface-2:#1c2726;
+      --ink:#e9f1ef;
+      --ink-dim:#9bb0ac;
+      --line:#2b3634;
+      --line-strong:#3a4744;
+      --accent:#4fb5a6;
+      --accent-ink:#0c1615;
+      --fb:#7ea3e8;
+      --fb-soft:#1b2a3d;
+      --ig:#e77fac;
+      --ig-soft:#3a1e2b;
+      --web:#e2a565;
+      --web-soft:#3a2b17;
+      --msg:#7bcda2;
+      --msg-soft:#183226;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1616;
+    --surface:#161f1f;
+    --surface-2:#1c2726;
+    --ink:#e9f1ef;
+    --ink-dim:#9bb0ac;
+    --line:#2b3634;
+    --line-strong:#3a4744;
+    --accent:#4fb5a6;
+    --accent-ink:#0c1615;
+    --fb:#7ea3e8;
+    --fb-soft:#1b2a3d;
+    --ig:#e77fac;
+    --ig-soft:#3a1e2b;
+    --web:#e2a565;
+    --web-soft:#3a2b17;
+    --msg:#7bcda2;
+    --msg-soft:#183226;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    margin:0;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px 96px;}
+  h1,h2,h3{text-wrap:balance; margin:0; font-family:'Big Shoulders Display', 'Arial Narrow', sans-serif;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:72px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{margin-bottom:14px;}
+  .hero h1{
+    font-size:clamp(40px,6vw,64px);
+    font-weight:800;
+    line-height:.98;
+    color:var(--ink);
+  }
+  .hero p{
+    max-width:52ch;
+    font-size:16px;
+    line-height:1.55;
+    color:var(--ink-dim);
+    margin:18px 0 0;
+  }
+  .hero .meta{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    margin-top:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-dim);
+  }
+  .hero .meta b{color:var(--ink); font-weight:600;}
+
+  /* ---------- Summary tiles ---------- */
+  .tiles{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:36px;
+  }
+  .tile{
+    background:var(--surface);
+    padding:22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .tile .label{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-dim);}
+  .tile .num{font-family:'Big Shoulders Display'; font-weight:700; font-size:clamp(26px,3.2vw,34px); font-variant-numeric:tabular-nums; line-height:1;}
+
+  /* ---------- Section shell ---------- */
+  section.channel{
+    padding:56px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .channel-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .swatch{width:10px; height:10px; border-radius:2px; flex:none;}
+  .channel-head h2{font-size:clamp(26px,3.4vw,34px); font-weight:700;}
+  .channel-head .period{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-dim); margin-left:auto; white-space:nowrap;}
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-bottom:24px;
+  }
+  .stat{
+    background:var(--surface);
+    padding:18px 18px;
+  }
+  .stat .label{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:6px;}
+  .stat .num{font-family:'Big Shoulders Display'; font-weight:700; font-size:24px; font-variant-numeric:tabular-nums;}
+
+  .note{
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:64ch;
+  }
+  .note strong{color:var(--ink); font-weight:600;}
+
+  /* ---------- bar charts ---------- */
+  .barlist{display:flex; flex-direction:column; gap:10px; margin:22px 0;}
+  .barlist .row{display:grid; grid-template-columns:120px 1fr 78px; align-items:center; gap:12px;}
+  .barlist .row .rowlabel{font-size:13px; color:var(--ink-dim);}
+  .barlist .track{position:relative; height:20px; background:var(--surface-2); border-radius:3px; overflow:hidden;}
+  .barlist .fill{position:absolute; inset:0 auto 0 0; border-radius:3px;}
+  .barlist .rowval{font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-align:right; font-variant-numeric:tabular-nums; color:var(--ink);}
+
+  .split-bar{
+    display:flex; height:28px; border-radius:4px; overflow:hidden; margin:18px 0 10px;
+    border:1px solid var(--line);
+  }
+  .split-bar span{display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#fff;}
+  .split-legend{display:flex; gap:20px; font-size:12.5px; color:var(--ink-dim); flex-wrap:wrap;}
+  .split-legend i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:-1px;}
+
+  .two-col{display:grid; grid-template-columns:1.1fr .9fr; gap:40px;}
+  @media (max-width:760px){.two-col{grid-template-columns:1fr;} .tiles{grid-template-columns:repeat(2,1fr);} .barlist .row{grid-template-columns:96px 1fr 66px;}}
+
+  /* ---------- insight cards ---------- */
+  .insights{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .insight{background:var(--surface); padding:26px 24px;}
+  .insight h3{font-size:18px; font-weight:700; margin-bottom:8px; font-family:'IBM Plex Sans'; }
+  .insight p{font-size:14px; line-height:1.55; color:var(--ink-dim); margin:0;}
+  @media (max-width:760px){.insights{grid-template-columns:1fr;}}
+
+  /* ---------- next steps ---------- */
+  .next{
+    padding:64px 0 0;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:28px;
+  }
+  @media (max-width:760px){.next{grid-template-columns:1fr;}}
+  .next .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-top:3px solid var(--accent);
+    padding:22px 22px 24px;
+  }
+  .next .card h3{font-size:19px; font-weight:700; margin-bottom:8px;}
+  .next .card p{font-size:14px; line-height:1.6; color:var(--ink-dim); margin:0;}
+
+  footer{
+    margin-top:72px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-dim);
+  }
+
+  ::selection{background:var(--accent); color:var(--accent-ink);}
+</style>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Sección · Resultados en redes</div>
+    <h1>Lo que hicieron<br>Facebook, Instagram<br>y el sitio</h1>
+    <p>Cifras de alcance, tráfico y contacto del último ciclo mensual, con el corte semanal más reciente como referencia rápida. Fuentes: Meta Business Suite, Google Analytics 4 y el buzón de WhatsApp / Messenger.</p>
+    <div class="meta">
+      <span>Periodo principal&nbsp; <b>13 jul – 14 ago 2026</b></span>
+      <span>Última semana registrada&nbsp; <b>22 – 29 ago 2026</b></span>
+      <span>refrigeracionlozano.com</span>
+    </div>
+
+    <div class="tiles">
+      <div class="tile"><span class="label">Visualizaciones de contenido</span><span class="num">891,162</span></div>
+      <div class="tile"><span class="label">Personas alcanzadas</span><span class="num">682,202</span></div>
+      <div class="tile"><span class="label">Usuarios en el sitio</span><span class="num">20,016</span></div>
+      <div class="tile"><span class="label">Mensajes de anuncios atendidos</span><span class="num">70</span></div>
+    </div>
+  </section>
+
+  <!-- FACEBOOK -->
+  <section class="channel">
+    <div class="channel-head">
+      <span class="swatch" style="background:var(--fb)"></span>
+      <h2>Facebook</h2>
+      <span class="period">13 jul – 14 ago</span>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="label">Visualizaciones</div><div class="num">851,461</div></div>
+      <div class="stat"><div class="label">Alcance</div><div class="num">674,865</div></div>
+      <div class="stat"><div class="label">Interacciones</div><div class="num">5,722</div></div>
+      <div class="stat"><div class="label">Clics al enlace</div><div class="num">7,779</div></div>
+      <div class="stat"><div class="label">Visitas a la página</div><div class="num">11,999</div></div>
+      <div class="stat"><div class="label">Seguidores nuevos</div><div class="num">+222</div></div>
+    </div>
+
+    <p class="note">Facebook concentró el <strong>96 % de las visualizaciones</strong> y el <strong>99 % del alcance</strong> de todas las redes en el periodo. El ritmo de publicación bajó a partir del 31 de julio: el alcance diario cayó de forma marcada, pero la atención de mensajes no se resintió — al contrario, mejoró al enfocar mejor la segmentación de los anuncios que sí generan contacto.</p>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="channel">
+    <div class="channel-head">
+      <span class="swatch" style="background:var(--ig)"></span>
+      <h2>Instagram</h2>
+      <span class="period">13 jul – 14 ago</span>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="stat-row" style="grid-template-columns:repeat(2,1fr);">
+          <div class="stat"><div class="label">Visualizaciones</div><div class="num">39,701</div></div>
+          <div class="stat"><div class="label">Alcance</div><div class="num">7,337</div></div>
+          <div class="stat"><div class="label">Interacciones</div><div class="num">699</div></div>
+          <div class="stat"><div class="label">Visitas al perfil</div><div class="num">155</div></div>
+          <div class="stat"><div class="label">Clics al enlace</div><div class="num">60</div></div>
+          <div class="stat"><div class="label">Seguidores nuevos</div><div class="num">+32</div></div>
+        </div>
+        <p class="note">Canal todavía pequeño frente a Facebook, pero con tres conversaciones iniciadas de forma orgánica — sin pauta de por medio. Es la cuenta con más margen para crecer.</p>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">Quién ve el contenido · % por edad</div>
+        <div class="barlist">
+          <div class="row"><span class="rowlabel">18–24</span><div class="track"><div class="fill" style="width:6%;background:var(--ig)"></div></div><span class="rowval">2.3 %</span></div>
+          <div class="row"><span class="rowlabel">25–34</span><div class="track"><div class="fill" style="width:81%;background:var(--ig)"></div></div><span class="rowval">31.1 %</span></div>
+          <div class="row"><span class="rowlabel">35–44</span><div class="track"><div class="fill" style="width:100%;background:var(--ig)"></div></div><span class="rowval">38.4 %</span></div>
+          <div class="row"><span class="rowlabel">45–54</span><div class="track"><div class="fill" style="width:50%;background:var(--ig)"></div></div><span class="rowval">19.1 %</span></div>
+          <div class="row"><span class="rowlabel">55–64</span><div class="track"><div class="fill" style="width:18%;background:var(--ig)"></div></div><span class="rowval">6.8 %</span></div>
+          <div class="row"><span class="rowlabel">65+</span><div class="track"><div class="fill" style="width:6%;background:var(--ig)"></div></div><span class="rowval">2.3 %</span></div>
+        </div>
+        <p class="note">66 % mujeres · 87.3 % en México · Chihuahua y Torreón a la cabeza.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SITIO WEB -->
+  <section class="channel">
+    <div class="channel-head">
+      <span class="swatch" style="background:var(--web)"></span>
+      <h2>Sitio web</h2>
+      <span class="period">17 jul – 13 ago</span>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">Sesiones por origen</div>
+        <div class="barlist">
+          <div class="row"><span class="rowlabel">Google orgánico</span><div class="track"><div class="fill" style="width:100%;background:var(--web)"></div></div><span class="rowval">23,764</span></div>
+          <div class="row"><span class="rowlabel">Directo</span><div class="track"><div class="fill" style="width:16%;background:var(--web)"></div></div><span class="rowval">3,815</span></div>
+          <div class="row"><span class="rowlabel">Bing</span><div class="track"><div class="fill" style="width:6%;background:var(--web)"></div></div><span class="rowval">1,441</span></div>
+          <div class="row"><span class="rowlabel">Redes sociales</span><div class="track"><div class="fill" style="width:1.2%;background:var(--web)"></div></div><span class="rowval">285</span></div>
+          <div class="row"><span class="rowlabel">Asistentes de IA</span><div class="track"><div class="fill" style="width:.6%;background:var(--web)"></div></div><span class="rowval">126</span></div>
+        </div>
+      </div>
+      <div class="stat-row" style="grid-template-columns:repeat(2,1fr); align-content:start;">
+        <div class="stat"><div class="label">Usuarios activos</div><div class="num">20,016</div></div>
+        <div class="stat"><div class="label">Usuarios nuevos</div><div class="num">17,333</div></div>
+        <div class="stat"><div class="label">Sesiones</div><div class="num">31,481</div></div>
+        <div class="stat"><div class="label">Tiempo medio</div><div class="num">2:26</div></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px;">Google orgánico es <strong>75 % del tráfico total</strong> del sitio y 87 % de los usuarios entraron por primera vez — el sitio sigue captando gente nueva, no solo repitiendo visitantes.</p>
+  </section>
+
+  <!-- MENSAJERÍA -->
+  <section class="channel">
+    <div class="channel-head">
+      <span class="swatch" style="background:var(--msg)"></span>
+      <h2>Buzón de WhatsApp y Messenger</h2>
+      <span class="period">semana 22–29 ago</span>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">De dónde llegaron las 81 conversaciones</div>
+        <div class="split-bar">
+          <span style="width:72%; background:var(--msg);">58 · anuncio</span>
+          <span style="width:28%; background:var(--surface-2); color:var(--ink-dim);">23 · contacto</span>
+        </div>
+        <div class="split-legend">
+          <span><i style="background:var(--msg)"></i>Desde un anuncio — 72 %</span>
+          <span><i style="background:var(--surface-2); border:1px solid var(--line-strong)"></i>Desde la página de contacto</span>
+        </div>
+
+        <div class="eyebrow" style="margin:26px 0 14px;">Qué preguntaron</div>
+        <div class="barlist">
+          <div class="row"><span class="rowlabel">Sin producto</span><div class="track"><div class="fill" style="width:100%;background:var(--msg)"></div></div><span class="rowval">28</span></div>
+          <div class="row"><span class="rowlabel">Refacciones</span><div class="track"><div class="fill" style="width:46%;background:var(--msg)"></div></div><span class="rowval">13</span></div>
+          <div class="row"><span class="rowlabel">Enfriadores</span><div class="track"><div class="fill" style="width:46%;background:var(--msg)"></div></div><span class="rowval">13</span></div>
+          <div class="row"><span class="rowlabel">Minisplit</span><div class="track"><div class="fill" style="width:43%;background:var(--msg)"></div></div><span class="rowval">12</span></div>
+          <div class="row"><span class="rowlabel">Extractores</span><div class="track"><div class="fill" style="width:36%;background:var(--msg)"></div></div><span class="rowval">10</span></div>
+          <div class="row"><span class="rowlabel">Otros</span><div class="track"><div class="fill" style="width:18%;background:var(--msg)"></div></div><span class="rowval">5</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">Qué pasó con ellas</div>
+        <div class="stat-row" style="grid-template-columns:repeat(2,1fr);">
+          <div class="stat"><div class="label">Canalizadas a un asesor</div><div class="num">45</div></div>
+          <div class="stat"><div class="label">Hubo que preguntar ciudad</div><div class="num">30</div></div>
+          <div class="stat"><div class="label">Recibieron precio en el chat</div><div class="num">20</div></div>
+          <div class="stat"><div class="label">Se quedaron en el saludo</div><div class="num">20</div></div>
+        </div>
+        <p class="note" style="margin-top:16px;">Las categorías se traslapan: una conversación puede recibir precio y además canalizarse. En la semana llegaron 7 contactos desde fuera de Chihuahua, Coahuila y Durango — zonas donde hoy no hay cobertura.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ULTIMA SEMANA REDES -->
+  <section class="channel">
+    <div class="channel-head">
+      <h2 style="font-size:22px;">Corte más reciente en redes</h2>
+      <span class="period">semana 22–29 ago</span>
+    </div>
+    <div class="insights">
+      <div class="insight">
+        <h3 style="color:var(--fb)">Facebook</h3>
+        <p>208,622 visualizaciones y 1,484 de alcance en la semana, con 1,547 visitas al perfil, 1,513 clics al enlace, 571 interacciones y 43 seguidores nuevos.</p>
+      </div>
+      <div class="insight">
+        <h3 style="color:var(--ig)">Instagram</h3>
+        <p>153,960 espectadores alcanzados y 5,102 visualizaciones, con 93 interacciones, 24 visitas al perfil, 11 clics al enlace y 4 seguidores nuevos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LECTURA -->
+  <section class="channel" style="border-bottom:none;">
+    <div class="channel-head"><h2 style="font-size:26px;">Lectura del periodo</h2></div>
+    <div class="insights">
+      <div class="insight">
+        <h3>Facebook es el motor</h3>
+        <p>674,865 personas alcanzadas equivalen al 99 % del alcance social del mes — casi todo el peso de la marca en redes pasa por ahí.</p>
+      </div>
+      <div class="insight">
+        <h3>Google trae el tráfico</h3>
+        <p>23,764 de las 31,481 sesiones del sitio llegan por búsqueda orgánica; redes sociales aporta apenas 285.</p>
+      </div>
+      <div class="insight">
+        <h3>Segmentar ganó a publicar</h3>
+        <p>Menos publicaciones desde el 31 de julio, pero mejor segmentación: bajó el alcance, subieron los mensajes atendidos.</p>
+      </div>
+      <div class="insight">
+        <h3>El anuncio no dice qué ni dónde</h3>
+        <p>28 conversaciones llegan sin nombrar producto y en 30 hubo que preguntar la ciudad — el primer mensaje del anuncio se queda corto.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <div class="card">
+      <h3>Mover presupuesto</h3>
+      <p>A los anuncios segmentados que generaron las 70 conversaciones de la semana, y limitar la audiencia a Chihuahua, Coahuila y Durango.</p>
+    </div>
+    <div class="card">
+      <h3>Medir hasta la venta</h3>
+      <p>Activar eventos clave en el sitio para atribuir sesiones a ventas, y pedir ciudad y producto desde el primer mensaje del anuncio.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>Refrigeración Lozano</span>
+    <span>Fuentes: Meta Business Suite · Google Analytics 4 · Buzón WhatsApp/Messenger</span>
+  </footer>
+
+</div>
